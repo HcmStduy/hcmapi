@@ -15,6 +15,7 @@ class AppUser(YGBaseModel):
     create_time = models.DateField(verbose_name='注册时间',auto_now_add=True)
     status = models.IntegerField(verbose_name='状态',default=0,choices=((2,'已注销'),(1,"已激活"),
                                                             (0,"未激活")))
+    img1 = models.CharField(max_length=100,verbose_name='头像',blank=True,null=True)
     objects = AppUserManager()
 
     def __str__(self):

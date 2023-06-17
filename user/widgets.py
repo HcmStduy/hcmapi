@@ -28,4 +28,4 @@ class IDwidget(TextInput):
         return super(IDwidget, self).get_context(name, value, attrs)
 
 class ImgWidget(TextInput):
-    template_name = ''
+    template_name = 'img_name_widget.html'

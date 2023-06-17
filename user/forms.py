@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 
 from .models import AppUser
 import  re #正则
-from .widgets import SendEmailButton,IDwidget
+from .widgets import SendEmailButton,IDwidget,ImgWidget
 class AppUserForms(forms.ModelForm):
     id = forms.CharField(disabled=True,label='主键',widget=IDwidget)
 
@@ -25,11 +25,11 @@ class AppUserForms(forms.ModelForm):
     #通过widget定义widget小部件
     email = forms.CharField(required=False,widget=SendEmailButton)
 
-    img1 = forms.CharField(max_length=100,label='头像')
+    img1 = forms.CharField(max_length=100,label='头像',widget=ImgWidget)
     class Meta:
         model = AppUser
         # fields = '__all__'
-        fields = ('id','name','anth_key','phone','email')
+        fields = ('id','img1','name','anth_key','phone','email')
         error_messages = {
             'name':{
                 "required":'用户是必填项',
