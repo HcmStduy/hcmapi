@@ -83,6 +83,8 @@ def img_load(request,user_id):
         'msg':'上传失败',
         'path':'user/1.jpg'
     })
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/',include('user.urls')),

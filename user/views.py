@@ -2,7 +2,7 @@ import os
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
@@ -59,4 +59,41 @@ def register(request):
         form = AppUserForms()
     return render(request, 'register.html', locals())
 
+def index(request):
+    # if not request.session.get('is_login', None):
+    #     return redirect('/user/login/')
+
+    return render(request,'index.html',locals())
+
+
+@csrf_exempt
+def login (request):
+    # if request.session.get('is_login', None):  # 不允许重复登录
+    #     return redirect('/user/index')
+    if request.method == 'POST':
+        login_form = AppUserForms(request.POST)
+        message = "请检查填写的内容!"
+        if login_form.is_valid():
+
+            name = login_form.cleaned_data.get('name')
+            anth_key = login_form.cleaned_data.get('anth_key')
+            try:
+                user = AppUser.objects.filter(name=name).first()
+            except Exception as e:
+                print(e)
+                message = '用户不存在!'
+                return render(request, 'login.html', locals())
+            if user.anth_key == anth_key:
+                request.session['is_login'] = True  # 写入用户状态和数据
+                request.session['id'] = user.id
+                request.session['name'] = user.name
+                return redirect('/user/index/')
+            else:
+                message = '密码不正确!'
+                return render(request, 'login.html', locals())
+        else:
+            return render(request, 'login.html', locals())
+
+    login_form = AppUserForms()
+    return render(request, 'login.html', locals())
 

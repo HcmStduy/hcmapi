@@ -7,9 +7,11 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from OgAPI import settings
-from .views import register
+from .views import register,index,login
+
 
 urlpatterns = [
-    path('register/',register)
-
+    path('register/',register),
+    path('index/', index),
+    path('login/',login)
 ]
