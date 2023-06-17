@@ -21,6 +21,7 @@ class SendEmailButton(Input):
 
 class IDwidget(TextInput):
     def get_context(self, name, value, attrs):
+
         #新增用户时
         if not value:
             value = uuid.uuid4().hex

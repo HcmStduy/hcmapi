@@ -5,7 +5,9 @@ from .models import AppUser
 import  re #正则
 from .widgets import SendEmailButton,IDwidget,ImgWidget
 class AppUserForms(forms.ModelForm):
-    id = forms.CharField(disabled=True,label='主键',widget=IDwidget)
+    id = forms.CharField(
+        # disabled=True,
+                         label='主键(请勿修改)',widget=IDwidget,required=False,)
 
     name = forms.CharField(min_length=3,max_length=30,required=True,
                            error_messages={
@@ -19,13 +21,14 @@ class AppUserForms(forms.ModelForm):
                                                          "required": '口令不能空',
                                                          'min_length':'口令最少6',
                                                      }
+
                               )
     phone = forms.CharField(min_length=11,max_length=11,required=False)
 
     #通过widget定义widget小部件
     email = forms.CharField(required=False,widget=SendEmailButton)
 
-    img1 = forms.CharField(max_length=100,label='头像',widget=ImgWidget)
+    img1 = forms.ImageField(max_length=100,label='头像',required=False)
     class Meta:
         model = AppUser
         # fields = '__all__'

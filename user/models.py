@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from common import  YGBaseModel
 # Create your models here.
@@ -5,6 +7,12 @@ from common import  YGBaseModel
 class AppUserManager(models.Manager):
     def get_queryset(self):
         return super(AppUserManager, self).get_queryset().filter(~models.Q(status=2))
+
+def user_directory_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f'{instance.id}.{ext}'
+    return f"users/{filename}"
+
 class AppUser(YGBaseModel):
     name = models.CharField(max_length=20
                             ,verbose_name='用户名')
@@ -15,7 +23,9 @@ class AppUser(YGBaseModel):
     create_time = models.DateField(verbose_name='注册时间',auto_now_add=True)
     status = models.IntegerField(verbose_name='状态',default=0,choices=((2,'已注销'),(1,"已激活"),
                                                             (0,"未激活")))
-    img1 = models.CharField(max_length=100,verbose_name='头像',blank=True,null=True)
+    img1 = models.ImageField(max_length=100,verbose_name='头像',blank=True,null=True,
+                             upload_to=user_directory_path
+                             )
     objects = AppUserManager()
 
     def __str__(self):

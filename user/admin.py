@@ -4,8 +4,8 @@ from .forms import AppUserForms
 # Register your models here.
 
 class AppUserAdmin(admin.ModelAdmin):
-    list_display = ('name','anth_key','phone','email','create_time','status')
-    # fields = ('name','anth_key','phone','email','status')
+    list_display = ('id','name','anth_key','phone','email','create_time','status','img1')
+    fields = ('name','anth_key','phone','email','status','img1')
     form = AppUserForms
 
 
