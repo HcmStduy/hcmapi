@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'commondity',
     'user',
 ]
@@ -134,31 +135,31 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
 
-#配置缓存Cache
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://47.102.208.102:6379/2",
-#     }
-# }
+# 配置缓存Cache
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://47.102.208.102:6379/2",
+    }
+}
 #配置Session https://docs.djangoproject.com/zh-hans/4.2/ref/settings/#session-engine
-# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-# SESSION_COOKIE_NAME ='Qbuy_Session_Id'
-# SESSION_COOKIE_PATH='/'
-# SESSION_CACHE_ALIAS = 'default'
-# SESSION_COOKIE_AGE = 604800 #1周
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_COOKIE_NAME ='Og_Session_Id'
+SESSION_COOKIE_PATH='/'
+SESSION_CACHE_ALIAS = 'default'
+SESSION_COOKIE_AGE = 604800 #1周
 
 #配置Celery
 # CELERY_IMPORTS =('')
 
 
-#配置REST_FRAMEWORK
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.BasicAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#     ]
-# }
+# 配置REST_FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 #配置QQ邮箱
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -84,10 +84,13 @@ def img_load(request,user_id):
         'path':'user/1.jpg'
     })
 
-
+from api import api_router
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(api_router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
     path('user/',include('user.urls')),
+    path('comm/',include('commondity.urls')),
     path('email/<email>/',send_email),
     path('img1/<user_id>/',img_load),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
