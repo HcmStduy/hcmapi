@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'commondity',
     'user',
+    'goods',
+    'address',
+    'citys',
+    'cartlist',
 ]
 
 MIDDLEWARE = [
