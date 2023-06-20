@@ -91,6 +91,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('user/',include('user.urls')),
     path('comm/',include('commondity.urls')),
+    path('citys/', include('citys.urls')),
+    path('goods/', include('goods.urls')),
     path('email/<email>/',send_email),
     path('img1/<user_id>/',img_load),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

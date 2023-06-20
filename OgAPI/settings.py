@@ -143,7 +143,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://47.102.208.102:6379/2",
+        "LOCATION": "redis://127.0.0.1:6379/2",
     }
 }
 #配置Session https://docs.djangoproject.com/zh-hans/4.2/ref/settings/#session-engine

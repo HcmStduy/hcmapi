@@ -1,5 +1,9 @@
 from  rest_framework import serializers,viewsets
-from goods.models import  GoodsModel,GoodsInfoModel,TagModel,GoodsImageModel
+
+from api.commondity_set import CategoryModelSerializer
+from goods.models import GoodsModel, GoodsInfoModel, TagModel, GoodsImageModel, SiwapModel
+from api.address_set import ActivesModelserializers
+
 class GoodsModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = GoodsModel
@@ -20,6 +24,27 @@ class GoodsImageModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = GoodsImageModel
         fields =  ('id','img1','goods_id')
+
+#轮播图
+class SiwapModelSerializers(serializers.ModelSerializer):
+    active_id = ActivesModelserializers
+
+    class Meta:
+        model = SiwapModel
+        fields = ['active_id', 'active_img']
+
+class GoodsImage_OneSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsImageModel
+        fields = ['img1']
+
+class GoodsModel_twoSerializers(serializers.HyperlinkedModelSerializer):
+    categoryid = CategoryModelSerializer
+    image = GoodsImageModelSerializer(many=True)
+
+    class Meta:
+        model = GoodsModel
+        fields = ['image', 'id', 'goods_name', 'price']
 #API视图类
 class GoodsModelAPIView(viewsets.ModelViewSet):
     queryset = GoodsModel.objects.all()

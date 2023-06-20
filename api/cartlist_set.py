@@ -14,6 +14,10 @@ class OrderlistModelSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = OrderlistModel
         fields = ('user','order_time','order_statues','addr_id')
+class Order_list_1_SeraLier(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OrderGoods
+        fields = ('count',)
 
 class OrderGoodsAPIView(viewsets.ModelViewSet):
     queryset = OrderGoods.objects.all()

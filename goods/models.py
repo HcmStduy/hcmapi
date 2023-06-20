@@ -95,17 +95,17 @@ class GoodsImageModel(YGBaseModel):
 
 
 # 轮播图表
-# class SiwapModel(YGBaseModel):
-#     class Meta:
-#         db_table = 't_siwap'
-#         verbose_name_plural = verbose_name = '轮播图表'
-#
-#     active_id = models.OneToOneField('Address.ActivesModel',
-#                                      on_delete=models.CASCADE,
-#                                      related_name='actives',
-#                                      verbose_name='活动表')
-#     active_img = models.CharField(max_length=200,
-#                                   verbose_name='活动大图')
-#
-#     def __str__(self):
-#         return self.active_id.active_name
+class SiwapModel(YGBaseModel):
+    class Meta:
+        db_table = 't_siwap'
+        verbose_name_plural = verbose_name = '轮播图表'
+
+    active_id = models.OneToOneField('address.ActivesModel',
+                                     on_delete=models.CASCADE,
+                                     related_name='actives',
+                                     verbose_name='活动表')
+    active_img = models.CharField(max_length=200,
+                                  verbose_name='活动大图')
+
+    def __str__(self):
+        return self.active_id.active_name
