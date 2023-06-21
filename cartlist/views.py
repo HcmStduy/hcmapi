@@ -1,5 +1,5 @@
 import datetime
-
+import uuid
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -9,7 +9,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from address.models import AddressModel
-from api.cartlist_set import Order_list_1_SeraLier
+from api.cartlist_set import Order_list_1_SeraLier, OrderGoodsSerializers
 from api.goods_set import GoodsModel_twoSerializers, GoodsImage_OneSerializers
 from cartlist.models import OrderlistModel, CartModel, OrderGoods
 from goods.models import GoodsModel, GoodsInfoModel, GoodsImageModel
@@ -24,20 +24,23 @@ class GetCartView(View):
     def post(self, request):
         goods = request.POST.get('goods_id')
         users = request.session.get('user')
+        users = request.POST.get('user_id') #测试用
         print(users)
 
         order_id = OrderlistModel.objects.filter(user_id=users).first()
-        count = Order_list_1_SeraLier(instance=order_id).data
+        print('order_id:--------',order_id)
+        order_info = OrderGoods.objects.filter(order=order_id).first()
+        print('order_info:::::',order_info)
+        order_data = OrderGoodsSerializers(instance=order_info,context={'request': request}).data
 
-        goods_info = GoodsModel.objects.filter(id=users).first()
-        goods_data = GoodsModel_twoSerializers(instance=goods_info).data
-
+        goods_info = GoodsModel.objects.filter(id=goods).first()
+        print('goods_info::::',goods_info)
+        goods_data = GoodsModel_twoSerializers(instance=goods_info,context={'request': request}).data
         return JsonResponse({
             "cart_datas": [
-                {
+                {    "user_id": users,
                     "goods_id": goods,
-                    "goods_num": count,
-                    "user_id": users,
+                    "order_info":order_data,
                     "goods_detail": goods_data
                 }
             ]
@@ -53,6 +56,7 @@ class AddCartView(View):
         goods_id = request.POST.get('goods_id')
         users = request.session.get('user')
         user_id = users['id']
+        # user_id = request.POST.get('user_id')  # 测试用
         userse = AppUser.objects.get(id=user_id)
         print(user_id)
 
@@ -65,7 +69,7 @@ class AddCartView(View):
         if add:
             order_list = OrderGoods.objects.filter(order__user__id=user_id, goods_id=goods_id).first()
             print(order_list)
-            print('数量', order_list.count)
+            # print('数量', order_list.count)
 
             if order_list:
                 order_list.count += 1
@@ -78,11 +82,11 @@ class AddCartView(View):
             else:
                 order = OrderlistModel.objects.filter(user_id=user_id).first()
                 print('Order_______', order)
-
-                start_time = str(datetime.now())
+                order_id = uuid.uuid4().hex
+                start_time = str(datetime.datetime.now())
                 order_statud = 1
                 goods = GoodsModel.objects.get(id=goods_id)
-                OrderlistModel(user=userse, start_time=start_time, order_statues=order_statud,
+                OrderlistModel(id=order_id,user=userse, order_time=start_time, order_statues=order_statud,
                                 addr_id=address_id).save()
                 OrderGoods(order=order, goods=goods, count=1).save()
                 OrderGoods(count=1).save()
@@ -157,13 +161,15 @@ class CartSumView(View):
 
     def post(self, request):
         # 获取当前用户所有的订单
-        user = request.session.get('user')
-        user_id = user['id']
+        # user = request.session.get('user')
+        # user_id = user['id']
+        user_id = request.POST.get('user_id')  # 测试用
         order = OrderGoods.objects.filter(order__user__id=user_id).all()
         sum = 0
         for i in order:
-            sum += (i.count * i.goods.originalprice)
-
+            print(i)
+            sum += (i.count * i.goods.price)
+            print(sum)
         return JsonResponse({
             'code': 200,
             'sum':sum,

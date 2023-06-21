@@ -38,12 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'commondity',
-    'user',
+
     'goods',
     'address',
     'citys',
     'cartlist',
+    'user',
+    'commondity',
 ]
 
 MIDDLEWARE = [
@@ -86,7 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ogdb',
-        'HOST': '47.102.208.102',
+        'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'root',
         'PASSWORD': '123456',

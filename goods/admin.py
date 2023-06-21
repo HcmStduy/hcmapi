@@ -3,7 +3,7 @@ from .models import GoodsModel,GoodsInfoModel,TagModel,GoodsImageModel
 # Register your models here.
 
 class GoodsModelAdmin(admin.ModelAdmin):
-    list_display = ('goods_name','goods_code','maxcount','price','goods_hot')
+    list_display = ('id','goods_name','goods_code','maxcount','price','goods_hot')
     fields = ('categoryid','goods_name','goods_code','maxcount','price','goods_hot')
 
 class  GoodsInfoModelAdmin(admin.ModelAdmin):

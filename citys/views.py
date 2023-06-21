@@ -12,7 +12,8 @@ from api.citys_set import CityModelSerializers,CityAreaModelSerializers
 class CityApi(View):
     def get(self, request):
         city_letter_set = []
-        city_dict ={'A':[],'B':[],'C':[],'D':[],'H':[],'L':[],'S':[],'T':[],'X':[],}
+        city_dict ={'A':[],'B':[],'C':[],'D':[],'E':[],'F':[],'G':[],'H':[],'I':[],'J':[],'K':[],'L':[],'M':[],'N':[],'O':[],'P':[],'Q':[],'R':[],
+                    'S':[],'T':[],'U':[],'V':[],'W':[],'X':[],'Y':[],'Z':[]}
 
         hot_city = CityModel.objects.filter(city_hot__gt=200).all()
         ser = CityModelSerializers(hot_city, many=True)
@@ -37,34 +38,28 @@ class CityApi(View):
             'B': city_dict['B'],
             'C': city_dict['C'],
             'D': city_dict['D'],
-            'H': city_dict['H'],
+            'E': city_dict['H'],
+            'F': city_dict['L'],
+            'G': city_dict['S'],
+            'H': city_dict['T'],
+            'I': city_dict['X'],
+            'J': city_dict['J'],
+            'K': city_dict['K'],
             'L': city_dict['L'],
+            'M': city_dict['M'],
+            'N': city_dict['N'],
+            'O': city_dict['O'],
+            'P': city_dict['P'],
+            'Q': city_dict['Q'],
+            'R': city_dict['R'],
             'S': city_dict['S'],
             'T': city_dict['T'],
+            'U': city_dict['U'],
+            'V': city_dict['V'],
+            'W': city_dict['W'],
             'X': city_dict['X'],
-
-            # 'A': city_name[0][0],
-            # 'B': city_name[1][0],
-            # 'C': city_name[2][0],
-            # 'D': city_name[3][0],
-            # # 'E': city_name[4][0],
-            # # 'F': city_name[5][0],
-            # # 'G': city_name[6][0],
-            # 'H': city_name[4][0],
-            # # 'J': city_name[8][0],
-            # # 'K': city_name[9][0],
-            # 'L': city_name[5][0],
-            # # 'M': city_name[11][0],
-            # # 'N': city_name[12][0],
-            # # 'P': city_name[13][0],
-            # # 'Q': city_name[14][0],
-            # # 'R': city_name[15][0],
-            # 'S': city_name[6][0],
-            # 'T': city_name[7][0],
-            # # 'W': city_name[18][0],
-            # 'X': city_name[8][0],
-            # # 'Y': city_name[20][0],
-            # # 'Z': city_name[21][0],
+            'Y': city_dict['Y'],
+            'Z': city_dict['Z'],
         }})
 
 

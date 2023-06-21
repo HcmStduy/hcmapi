@@ -93,6 +93,7 @@ urlpatterns = [
     path('comm/',include('commondity.urls')),
     path('citys/', include('citys.urls')),
     path('goods/', include('goods.urls')),
+    path('cart/', include('cartlist.urls')),
     path('email/<email>/',send_email),
     path('img1/<user_id>/',img_load),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
