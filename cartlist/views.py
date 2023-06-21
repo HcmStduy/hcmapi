@@ -161,9 +161,9 @@ class CartSumView(View):
 
     def post(self, request):
         # 获取当前用户所有的订单
-        # user = request.session.get('user')
-        # user_id = user['id']
-        user_id = request.POST.get('user_id')  # 测试用
+        user = request.session.get('user')
+        user_id = user['id']
+        # user_id = request.POST.get('user_id')  # 测试用
         order = OrderGoods.objects.filter(order__user__id=user_id).all()
         sum = 0
         for i in order:
